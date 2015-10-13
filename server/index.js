@@ -1,17 +1,11 @@
-import {AuthManager} from './AuthManager';
+import * as auth from './auth';
 import {dbHost, dbPort, dbName, webPort} from './config';
 import express from 'express';
 import http from 'http';
 import {listen as wsListen} from 'rethinkdb-websocket-server';
 import {promisify} from 'bluebird';
 import {queryWhitelist} from './queries';
-import rethinkdb from 'rethinkdb';
 import cors from 'cors';
-
-// Connect to rethinkdb so we can perform authentication queries
-const dbOpts = {host: dbHost, port: dbPort, db: dbName};
-const dbConnPromise = promisify(rethinkdb.connect)(dbOpts);
-const authManager = new AuthManager(dbConnPromise);
 
 // Set up the HTTP routes
 
@@ -24,7 +18,7 @@ app.use('/', express.static('assets'));
 app.post('/signup', async (req, res) => {
   const {userId, password} = req.query;
   try {
-    const {id, authToken} = await authManager.signup(userId, password);
+    const {id, authToken} = await auth.signup(userId, password);
     res.send({userId: id, authToken});
   } catch (error) {
     console.error(error);
@@ -35,7 +29,7 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
   const {userId, password} = req.query;
   try {
-    const {id, authToken} = await authManager.login(userId, password);
+    const {id, authToken} = await auth.login(userId, password);
     res.send({userId: id, authToken});
   } catch (error) {
     console.error(error);
@@ -49,7 +43,7 @@ const httpServer = http.createServer(app);
 // websocket connection
 async function sessionCreator(urlQueryParams) {
   const {userId, authToken} = urlQueryParams;
-  await authManager.tokenAuth(userId, authToken);
+  await auth.tokenAuth(userId, authToken);
   return {userId};
 }
 

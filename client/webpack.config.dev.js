@@ -3,10 +3,10 @@ import webpack from 'webpack';
 import serverConfig from '../server/config.json';
 
 export default {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   entry: [
     './client/src/app.js',
-     'webpack-hot-middleware/client'
+    'webpack-hot-middleware/client'
   ],
   output: {
     path: path.join(__dirname, 'dist'),

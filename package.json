@@ -18,6 +18,8 @@
     "cors": "~2.7.1",
     "express": "~4.13.3",
     "moment": "~2.10.6",
+    "passport": "^0.3.0",
+    "passport-facebook": "^2.0.0",
     "react": "^0.13.3",
     "react-rethinkdb": "~0.4.1",
     "rethinkdb": "~2.1.1",
