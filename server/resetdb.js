@@ -1,32 +1,40 @@
-import Promise from 'bluebird';
+import {promisify} from 'bluebird';
 import r from 'rethinkdb';
-import cfg from './config';
+import {dbHost, dbPort, dbName} from './config';
 
-const connPromise = Promise.promisify(r.connect)({
-  host: cfg.dbHost,
-  port: cfg.dbPort,
-  db: cfg.dbName,
-});
-const run = q => connPromise.then(c => q.run(c));
+const dbOpts = {host: dbHost, port: dbPort, db: dbName};
+const connPromise = promisify(r.connect)(dbOpts);
+async function run(query) {
+  return query.run(await connPromise);
+}
 
 console.log('Resetting chat db...');
 
-const recreateDb = name => run(r.dbDrop(name))
-                           .catch(() => {})
-                           .then(() => run(r.dbCreate(name)));
+async function recreateDb(name) {
+  try {
+    await run(r.dbDrop(name));
+  } catch (error) {} //eslint-disable-line no-empty
+  await run(r.dbCreate(name));
+}
 
-const recreateTable = name => run(r.tableDrop(name))
-                              .catch(() => {})
-                              .then(() => run(r.tableCreate(name)));
+async function recreateTable(name) {
+  try {
+    await run(r.tableDrop(name));
+  } catch (error) {} //eslint-disable-line no-empty
+  await run(r.tableCreate(name));
+}
 
-recreateDb(cfg.dbName).then(() => (
-  Promise.all([
+async function resetDb() {
+  await recreateDb(dbName);
+  await Promise.all([
     recreateTable('messages').then(() => (
       run(r.table('messages').indexCreate('createdAt'))
     )),
     recreateTable('users'),
-  ])
-)).then(() => {
-  connPromise.then(c => c.close());
+  ]);
+  const connection = await connPromise;
+  await connection.close();
   console.log('Completed');
-});
+}
+
+resetDb();

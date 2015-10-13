@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import {DefaultSession as RethinkSession} from 'react-rethinkdb';
-import {ChatBox} from './ChatBox.jsx';
+import {ChatBox} from './ChatBox';
 
 export const AuthWrapper = React.createClass({
   getInitialState() {
@@ -20,13 +20,13 @@ export const AuthWrapper = React.createClass({
   connect() {
     const userId = window.localStorage.getItem('userId');
     const authToken = window.localStorage.getItem('authToken');
-    const path = '/db'
+    const path = CONFIG.apiServer.path
                + '?userId=' + encodeURIComponent(userId)
                + '&authToken=' + encodeURIComponent(authToken);
-    const secure = window.location.protocol === 'https:';
+    const secure = CONFIG.apiServer.protocol === 'https:';
     RethinkSession.connect({
-      host: window.location.hostname,
-      port: window.location.port || (secure ? 443 : 80),
+      host: CONFIG.apiServer.hostname,
+      port: CONFIG.apiServer.port,
       path: path,
       secure: secure,
       db: 'react_example_chat',
@@ -35,7 +35,9 @@ export const AuthWrapper = React.createClass({
 
   handleButton(action, event) {
     event.preventDefault();
-    const uri = {'login': '/login', 'signup': '/signup'}[action];
+    const { protocol, hostname, port } = CONFIG.apiServer;
+    const path = {'login': '/login', 'signup': '/signup'}[action];
+    const uri = `${protocol}//${hostname}:${port}${path}`;
     const userId = React.findDOMNode(this.refs.userId).value;
     const password = React.findDOMNode(this.refs.password).value;
     this.setState({error: false});

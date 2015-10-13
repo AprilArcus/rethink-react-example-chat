@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import {r, QueryRequest, DefaultMixin as RethinkMixin} from 'react-rethinkdb';
-import {AutoScrollDown} from './AutoScrollDown.jsx';
-import {ChatMessage} from './ChatMessage.jsx';
-import {SendMessageForm} from './SendMessageForm.jsx';
+import {AutoScrollDown} from './AutoScrollDown';
+import {ChatMessage} from './ChatMessage';
+import {SendMessageForm} from './SendMessageForm';
 
 export const ChatBox = React.createClass({
   mixins: [RethinkMixin],
