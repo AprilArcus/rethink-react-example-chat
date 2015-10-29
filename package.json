@@ -18,7 +18,6 @@
     "express": "~4.13.3",
     "moment": "~2.10.6",
     "react": "^0.14.1",
-    "react-addons-pure-render-mixin": "^0.14.1",
     "react-dom": "^0.14.1",
     "react-rethinkdb": "~0.4.1",
     "rethinkdb": "~2.1.1",
