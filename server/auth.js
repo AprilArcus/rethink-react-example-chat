@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import cfg from './config';
 import crypto from 'crypto';
-import {promisify} from 'bluebird';
+import { promisify } from 'bluebird';
 import rethinkdb from 'rethinkdb';
-import {dbHost, dbPort, dbName} from './config';
+import { dbHost, dbPort, dbName } from './config';
 
 // Connect to rethinkdb so we can perform authentication queries
 const dbOpts = {host: dbHost, port: dbPort, db: dbName};

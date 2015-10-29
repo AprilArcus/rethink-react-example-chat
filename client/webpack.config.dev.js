@@ -1,11 +1,11 @@
 import path from 'path';
 import webpack from 'webpack';
-import serverConfig from '../server/config.json';
+import serverConfig from '../server/config';
 
 export default {
   devtool: 'cheap-module-source-map',
   entry: [
-    './client/src/app.js',
+    './client/src/app',
     'webpack-hot-middleware/client'
   ],
   output: {
@@ -27,19 +27,55 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+    extensions: [
+      '',
+      '.js',
+      '.jsx',
+      '.json',
+      '.coffee',
+      '.coffee.md',
+      '.litcoffee',
+      '.cson'
+    ]
+  },
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         loaders: [
           'babel'
-          // , 'eslint'
         ],
-        include: path.join(__dirname, 'src')
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
+        loaders: [
+          'json'
+        ]
+      },
+      {
+        test: /\.coffee$/,
+        loaders: [
+          'coffee'
+        ]
+      },
+      {
+        test: /\.(coffee\.md|litcoffee)$/,
+        loaders: [
+          'coffee?literate'
+        ]
+      },
+      {
+        test: /\.cson$/,
+        loader: 'cson'
       },
       {
         test: /\.css$/,
-        loaders: ['style', 'css']
+        loaders: [
+          'style',
+          'css'
+        ]
       }
     ]
   }

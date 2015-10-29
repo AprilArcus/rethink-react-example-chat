@@ -1,3 +1,4 @@
 {
-  "ignore": "client/src/**/*"
+  "ignore": "client/src/**/*",
+  "ext": "js json coffee coffee.md litcoffee cson"
 }

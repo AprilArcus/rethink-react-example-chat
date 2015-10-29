@@ -4,5 +4,4 @@ require.extensions['.cson'] = function(module, filename) {
   module.exports = require('cson').load(filename);
 };
 
-require('./server/apiServer');
-require('./client/devServer');
+require('./devServer');

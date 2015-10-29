@@ -1,6 +1,6 @@
-import {promisify} from 'bluebird';
+import { promisify } from 'bluebird';
 import r from 'rethinkdb';
-import {dbHost, dbPort, dbName} from './config';
+import { dbHost, dbPort, dbName } from './config';
 
 const dbOpts = {host: dbHost, port: dbPort, db: dbName};
 const connPromise = promisify(r.connect)(dbOpts);

@@ -5,9 +5,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec 'babel-node' index.js",
-    "watch:server": "nodemon --exec 'babel-node' server/index.js",
-    "watch:client": "nodemon --exec 'babel-node' client/devServer.js",
+    "start": "nodemon index.js",
+    "watch:server": "nodemon server/index.js",
+    "watch:client": "node client/index.js",
     "resetdb": "babel-node server/resetdb.js",
     "lint": "eslint server",
     "test": "mocha --compilers js:babel/register"
@@ -15,16 +15,12 @@
   "dependencies": {
     "bcrypt": "~0.8.5",
     "bluebird": "~2.10.2",
-    "cors": "~2.7.1",
     "express": "~4.13.3",
     "moment": "~2.10.6",
-    "passport": "^0.3.0",
-    "passport-facebook": "^2.0.0",
     "react": "^0.13.3",
     "react-rethinkdb": "~0.4.1",
     "rethinkdb": "~2.1.1",
-    "rethinkdb-websocket-server": "~0.2.0",
-    "superagent": "~1.4.0"
+    "rethinkdb-websocket-server": "~0.2.0"
   },
   "devDependencies": {
     "babel": "~5.8.23",
@@ -32,11 +28,15 @@
     "babel-eslint": "~4.1.3",
     "babel-loader": "~5.3.2",
     "babel-plugin-react-transform": "~1.1.1",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.10.0",
+    "cson": "^3.0.2",
+    "cson-loader": "^0.1.0",
     "css-loader": "~0.19.0",
     "eslint": "~1.6.0",
     "eslint-loader": "~1.1.0",
     "eslint-plugin-react": "~3.5.1",
-    "mocha": "~2.3.3",
+    "json-loader": "^0.5.3",
     "nodemon": "~1.7.1",
     "react-transform-catch-errors": "~1.0.0",
     "react-transform-hmr": "~1.0.1",
