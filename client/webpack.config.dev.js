@@ -1,6 +1,5 @@
 import path from 'path';
 import webpack from 'webpack';
-import serverConfig from '../server/config';
 
 export default {
   devtool: 'cheap-module-source-map',
@@ -14,16 +13,6 @@ export default {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      CONFIG: JSON.stringify({
-        apiServer: {
-          protocol: 'http:',
-          hostname: 'localhost',
-          path: '/db',
-          port: serverConfig.webPort
-        }
-      })
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
