@@ -1,10 +1,10 @@
 import React from 'react';
-import {r, DefaultSession as RethinkSession} from 'react-rethinkdb';
+import { r, DefaultSession as RethinkSession } from 'react-rethinkdb';
 
 export const SendMessageForm = React.createClass({
   handleSendMessage(event) {
     event.preventDefault();
-    const bodyInput = React.findDOMNode(this.refs.body);
+    const bodyInput = this.refs.body;
     const body = bodyInput.value;
     bodyInput.value = '';
     const query = r.table('messages').insert({

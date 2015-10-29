@@ -1,4 +1,5 @@
-{ createElement, render } = require 'react'
+{ createElement } = require 'react'
+{ render } = require 'react-dom'
 { AuthWrapper } = require './AuthWrapper'
 require './style.css'
 

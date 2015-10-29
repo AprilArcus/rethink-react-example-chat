@@ -1,8 +1,9 @@
-import React from 'react/addons';
+import React from 'react';
+import pureRenderMixin from 'react-addons-pure-render-mixin';
 import moment from 'moment';
 
 export const ChatMessage = React.createClass({
-  mixins: [React.addons.PureRenderMixin],
+  mixins: [pureRenderMixin],
 
   render() {
     const {curUserId, userId, body, createdAt} = this.props;
