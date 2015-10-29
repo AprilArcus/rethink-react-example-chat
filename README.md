@@ -6,6 +6,9 @@ Forked from [react-rethinkdb/examples/chat](https://github.com/mikemintz/react-r
 and webpack are configured to load .js, .json, .coffee, .coffee.md, .litcoffee
 and .cson files.
 
+Uses [babel-plugin-react-transform](https://github.com/gaearon/babel-plugin-react-transform) for
+hot-loading JS files, and the older [react-hot-loader](https://github.com/gaearon/react-hot-loader) as a post-compile stage to hot-load coffeescript.
+
 Nodemon will ignore changes to `client/src/*` such that changes to client-side
 code will not reboot the API server; however the reciprocal case does not yet
 hold: changes to server code will force an unnecessary reboot and recompile of

@@ -34,8 +34,10 @@ export default {
         test: /\.jsx?$/,
         loader: 'babel',
         query: {
-          optional: ['runtime'],
           cacheDirectory: true,
+          optional: ['runtime'],
+          stage: 2,
+          loose: 'all',
           plugins: ['react-transform'],
           extra: {
             'react-transform': {
@@ -58,7 +60,7 @@ export default {
       },
       {
         test: /\.coffee$/,
-        loader: 'coffee'
+        loaders: ['react-hot', 'coffee']
       },
       {
         test: /\.(coffee\.md|litcoffee)$/,
