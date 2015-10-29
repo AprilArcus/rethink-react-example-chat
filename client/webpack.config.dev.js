@@ -32,28 +32,24 @@ export default {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: [
-          'babel'
-        ],
+        loader: 'babel',
+        query: {
+          optional: ['runtime'],
+          cacheDirectory: true
+        },
         exclude: /node_modules/
       },
       {
         test: /\.json$/,
-        loaders: [
-          'json'
-        ]
+        loader: 'json'
       },
       {
         test: /\.coffee$/,
-        loaders: [
-          'coffee'
-        ]
+        loader: 'coffee'
       },
       {
         test: /\.(coffee\.md|litcoffee)$/,
-        loaders: [
-          'coffee?literate'
-        ]
+        loader: 'coffee?literate'
       },
       {
         test: /\.cson$/,
