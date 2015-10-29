@@ -1,4 +1,4 @@
-import React from 'react';
+import { default as React, Component } from 'react';
 import request from 'superagent';
 import { DefaultSession as RethinkSession } from 'react-rethinkdb';
 import { ChatBox } from './ChatBox';
@@ -11,19 +11,24 @@ const apiServer = {
   port: webPort
 }
 
-export const AuthWrapper = React.createClass({
-  getInitialState() {
-    return {
+export class AuthWrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       userId: window.localStorage.getItem('userId'),
       error: false,
     };
-  },
+    this.handleButton = this.handleButton.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.renderLoggedIn = this.renderLoggedIn.bind(this);
+    this.renderLoggedOut = this.renderLoggedOut.bind(this);
+  }
 
   componentWillMount() {
     if (this.state.userId) {
       this.connect();
     }
-  },
+  }
 
   connect() {
     const userId = window.localStorage.getItem('userId');
@@ -39,7 +44,7 @@ export const AuthWrapper = React.createClass({
       secure: secure,
       db: 'react_example_chat',
     });
-  },
+  }
 
   handleButton(action, event) {
     event.preventDefault();
@@ -64,14 +69,14 @@ export const AuthWrapper = React.createClass({
         this.setState({userId});
       }
     });
-  },
+  }
 
   handleLogout() {
     RethinkSession.close();
     this.setState({userId: null});
     window.localStorage.removeItem('userId');
     window.localStorage.removeItem('authToken');
-  },
+  }
 
   renderLoggedIn() {
     return (
@@ -86,7 +91,7 @@ export const AuthWrapper = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
   renderLoggedOut() {
     return (
@@ -102,7 +107,7 @@ export const AuthWrapper = React.createClass({
         </button>
       </div>
     );
-  },
+  }
 
   render() {
     if (this.state.userId) {
@@ -110,5 +115,5 @@ export const AuthWrapper = React.createClass({
     } else {
       return this.renderLoggedOut();
     }
-  },
-});
+  }
+}
