@@ -1,7 +1,12 @@
-import React from 'react';
+import { default as React, Component } from 'react';
 import { r, DefaultSession as RethinkSession } from 'react-rethinkdb';
 
-export const SendMessageForm = React.createClass({
+export class SendMessageForm extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSendMessage = this.handleSendMessage.bind(this);
+  }
+
   handleSendMessage(event) {
     event.preventDefault();
     const bodyInput = this.refs.body;
@@ -13,7 +18,7 @@ export const SendMessageForm = React.createClass({
       createdAt: r.now(),
     });
     RethinkSession.runQuery(query);
-  },
+  }
 
   render() {
     return (
@@ -29,5 +34,5 @@ export const SendMessageForm = React.createClass({
         </button>
       </form>
     );
-  },
-});
+  }
+}
