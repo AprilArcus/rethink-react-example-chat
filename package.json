@@ -16,13 +16,15 @@
     "babel-runtime": "^5.8.29",
     "bcrypt": "~0.8.5",
     "bluebird": "~2.10.2",
+    "cors": "^2.7.1",
     "express": "~4.13.3",
     "moment": "~2.10.6",
     "react": "^0.14.1",
     "react-dom": "^0.14.1",
     "react-rethinkdb": "~0.4.1",
     "rethinkdb": "~2.1.1",
-    "rethinkdb-websocket-server": "~0.2.0"
+    "rethinkdb-websocket-server": "~0.2.0",
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "babel": "~5.8.23",
